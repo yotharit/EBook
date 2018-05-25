@@ -26,31 +26,46 @@
         android:src="@mipmap/ic_launcher"
         android:scaleType="fitXY"/>
 
-    <TextView
-        android:id="@+id/bookName"
-        android:text="Book Name"
-        android:layout_toRightOf="@id/bookImage"
+    <LinearLayout
+        android:id="@+id/FirstRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_toRightOf="@id/bookImage"
         android:layout_alignParentTop="true"
-        android:textColor="@color/book"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:weightSum="6">
+
+        <TextView
+            android:id="@+id/bookName"
+            android:text="@string/bookName"
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:layout_height="wrap_content"
+            android:textColor="@color/book"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/bookYear"
+            android:text="year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="end"
+            android:textSize="14sp"
+            android:layout_weight="0.5"
+            android:textColor="@color/type" />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/bookPrice"
         android:text="Price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bookName"
+        android:layout_below="@id/FirstRow"
         android:layout_toRightOf="@id/bookImage"/>
 
-    <TextView
-        android:id="@+id/bookYear"
-        android:text="year"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/type" />
+
 
 </RelativeLayout>
