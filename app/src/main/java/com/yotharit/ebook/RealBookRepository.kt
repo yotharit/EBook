@@ -11,6 +11,8 @@ import java.util.*
 class RealBookRepository : BookRepository() {
 
     val bookList: ArrayList<Book> = ArrayList<Book>()
+    private var bookListCopy: ArrayList<Book> = ArrayList<Book>()
+
 
     inner class DataBookLoader : AsyncTask<String, String, String>() {
 
@@ -27,6 +29,7 @@ class RealBookRepository : BookRepository() {
                             tmp.getString("price").toDouble(), tmp.getString("pub_year").toInt(),
                             tmp.getString("img_url").toString())
                     bookList.add(book)
+                    bookListCopy.add(book)
                 }
                 setChanged()
                 notifyObservers()
@@ -43,6 +46,23 @@ class RealBookRepository : BookRepository() {
         setChanged()
         notifyObservers()
     }
+
+    fun filter(text: String) {
+        var text = text
+        bookList.clear()
+        if (text.isEmpty()) {
+            bookList.addAll(bookListCopy)
+        } else {
+            text = text.toLowerCase()
+            for (item in bookListCopy) {
+                if (item.title.toLowerCase().contains(text) || item.publicationYear.toString().contains(text)) {
+                    bookList.add(item)
+                }
+            }
+        }
+        sortBook(text)
+    }
+
 
 
     override fun loadAllBooks() {

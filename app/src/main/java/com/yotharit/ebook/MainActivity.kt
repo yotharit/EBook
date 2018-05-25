@@ -18,11 +18,8 @@ class MainActivity : AppCompatActivity(), BookView, SearchView.OnQueryTextListen
     lateinit var bookRepository: RealBookRepository
     lateinit var bookSearch: SearchView
 
-    val bookList: ArrayList<Book> = ArrayList<Book>()
 
     override fun setBookList(books: ArrayList<Book>) {
-        this.bookList.clear()
-        this.bookList.addAll(books)
         bookAdapter.notifyDataSetChanged()
     }
 
@@ -45,7 +42,7 @@ class MainActivity : AppCompatActivity(), BookView, SearchView.OnQueryTextListen
         bookSearch.setOnQueryTextListener(this)
 
         recyclerView = findViewById(R.id.bookRecycleView)
-        bookAdapter = BookAdapter(bookList)
+        bookAdapter = BookAdapter(bookRepository.bookList)
         val tranLayManager: RecyclerView.LayoutManager = LinearLayoutManager(applicationContext)
         recyclerView.layoutManager = tranLayManager
         recyclerView.itemAnimator = DefaultItemAnimator()
@@ -66,12 +63,12 @@ class MainActivity : AppCompatActivity(), BookView, SearchView.OnQueryTextListen
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        bookAdapter.filter(query!!)
+        bookRepository.filter(query!!)
         return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        bookAdapter.filter(newText!!)
+        bookRepository.filter(newText!!)
         return true
     }
 }

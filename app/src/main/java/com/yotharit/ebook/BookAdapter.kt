@@ -12,33 +12,11 @@ import com.squareup.picasso.Picasso
 class BookAdapter(bookList: ArrayList<Book>) : RecyclerView.Adapter<BookAdapter.MyViewHolder>() {
 
     private var bookList: ArrayList<Book> = bookList
-    private var bookListCopy: ArrayList<Book> = ArrayList<Book>()
-
-    init {
-        bookListCopy.addAll(bookList)
-    }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView: View = LayoutInflater.from(parent.context)
                 .inflate(R.layout.book_list_row, parent, false)
         return MyViewHolder(itemView)
-    }
-
-    fun filter(text: String) {
-        var text = text
-        bookList.clear()
-        if (text.isEmpty()) {
-            bookList.addAll(bookListCopy)
-        } else {
-            text = text.toLowerCase()
-            for (item in bookListCopy) {
-                if (item.title.toLowerCase().contains(text) || item.publicationYear.toString().contains(text)) {
-                    bookList.add(item)
-                }
-            }
-        }
-        notifyDataSetChanged()
     }
 
 
